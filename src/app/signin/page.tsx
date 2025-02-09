@@ -1,7 +1,8 @@
-export default function Home() {
+import Signin from "../components/Signin";
+export default function Login() {
   return (
     <>
-     <h1>This is signin page</h1>
+    <Signin/>
     </>
   );
 }

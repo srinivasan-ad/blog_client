@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { z } from "zod";
-import Link from 'next/link';
+import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,62 +16,87 @@ const loginSchema = z.object({
 
 type LoginData = z.infer<typeof loginSchema>;
 
-export default function Login({type} : {type : "signup" | "signin"}) {
+export default function Login({ type }: { type: "signup" | "signin" }) {
   const [formData, setFormData] = useState<LoginData | null>(null);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginData>({
     resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data: LoginData) => {
-    setFormData(data); 
+    setFormData(data);
     try {
-      const response = await fetch("https://blogserver-production-e457.up.railway.app/user/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://blogserver-production-e457.up.railway.app/user/signup",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.status === 200) {
-        toast.success("Sign-up successful!"); 
-      }
-      else if (response.status === 400) {
-        toast.info("Username is already taken :)", { style: { backgroundColor: "#3b82f6", color: "white" } });
-      } 
-       else {
+        toast.success("Sign-up successful!");
+      } else if (response.status === 400) {
+        toast.info("Username is already taken :)", {
+          style: { backgroundColor: "#3b82f6", color: "white" },
+        });
+      } else {
         const errorData = await response.json();
-        toast.error(`Error: ${errorData.message || "Something went wrong , user registration failed :("}`);
+        toast.error(
+          `Error: ${
+            errorData.message ||
+            "Something went wrong , user registration failed :("
+          }`
+        );
       }
     } catch (error) {
       toast.error("Network error, please try again.");
     }
   };
-  const head = type === "signup" ? "Create an account" : "Signin to your account";
-  const baseHead = type === "signup" ? "Already have an account ? " : "Don't have an account ? ";
+  const head =
+    type === "signup" ? "Create an account" : "Login to your account";
+  const baseHead =
+    type === "signup"
+      ? "Already have an account ? "
+      : "Don't have an account ? ";
   const baseLink = type === "signup" ? "Login" : "Signup";
   const link = type === "signup" ? "signin" : "signup";
   return (
     <div className=" bg-gray-50 h-screen flex items-center justify-center">
       <ToastContainer
-       position="top-center"
-       autoClose={3000}
-       aria-label="Toast Notifications"
-        />
+        position="top-center"
+        autoClose={3000}
+        aria-label="Toast Notifications"
+      />
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <div className="flex flex-col justify-between items-center mb-6">
           <h1 className="text-3xl font-extrabold">{head}</h1>
-          <p className="text-sm text-gray-500">{baseHead} <Link href={`/${link}`} className="underline hover:scale-150">{baseLink}</Link></p>
+          <p className="text-sm text-gray-500">
+            {baseHead}{" "}
+            <Link href={`/${link}`} className="underline hover:scale-150">
+              {baseLink}
+            </Link>
+          </p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <label className="block text-gray-700 font-medium">Name</label>
-            <input
-              type="text"
-              {...register("name")}
-              className="w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-indigo-200"
-            />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
-          </div>
+          {type === "signup" && (
+            <div>
+              <label className="block text-gray-700 font-medium">Name</label>
+              <input
+                type="text"
+                {...register("name")}
+                className="w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-indigo-200"
+              />
+              {errors.name && (
+                <p className="text-red-500 text-sm">{errors.name.message}</p>
+              )}
+            </div>
+          )}
           <div>
             <label className="block text-gray-700 font-medium">Username</label>
             <input
@@ -79,7 +104,9 @@ export default function Login({type} : {type : "signup" | "signin"}) {
               {...register("username")}
               className="w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-indigo-200"
             />
-            {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
+            {errors.username && (
+              <p className="text-red-500 text-sm">{errors.username.message}</p>
+            )}
           </div>
           <div>
             <label className="block text-gray-700 font-medium">Password</label>
@@ -88,7 +115,9 @@ export default function Login({type} : {type : "signup" | "signin"}) {
               {...register("password")}
               className="w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-indigo-200"
             />
-            {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
           </div>
           <button
             type="submit"
