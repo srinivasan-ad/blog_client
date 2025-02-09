@@ -46,6 +46,10 @@ export default function Login({type} : {type : "signup" | "signin"}) {
       toast.error("Network error, please try again.");
     }
   };
+  const head = type === "signup" ? "Create an account" : "Signin to your account";
+  const baseHead = type === "signup" ? "Already have an account ? " : "Don't have an account ? ";
+  const baseLink = type === "signup" ? "Login" : "Signup";
+  const link = type === "signup" ? "signin" : "signup";
   return (
     <div className=" bg-gray-50 h-screen flex items-center justify-center">
       <ToastContainer
@@ -55,8 +59,8 @@ export default function Login({type} : {type : "signup" | "signin"}) {
         />
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <div className="flex flex-col justify-between items-center mb-6">
-          <h1 className="text-3xl font-extrabold">Create an account</h1>
-          <p className="text-sm text-gray-500">Already have an account ? <Link href="/signin" className="underline hover:scale-150">Login</Link></p>
+          <h1 className="text-3xl font-extrabold">{head}</h1>
+          <p className="text-sm text-gray-500">{baseHead} <Link href={`/${link}`} className="underline hover:scale-150">{baseLink}</Link></p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
