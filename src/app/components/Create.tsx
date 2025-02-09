@@ -25,6 +25,7 @@ type LoginData = z.infer<typeof loginSchema>;
 
 export default function Login({ type }: { type: "signup" | "signin" }) {
   const schema = type === "signin" ? loginSchema : signupSchema;
+  const router = useRouter()
 
   const { register, handleSubmit, formState: { errors } } = useForm<SigninData | LoginData>({
     resolver: zodResolver(schema),
@@ -44,6 +45,7 @@ export default function Login({ type }: { type: "signup" | "signin" }) {
 
       if (response.status === 200) {
         toast.success(`${type === "signup" ? "Sign-up" : "Sign-in"} successful!`);
+        router.push('/blogs')
       } else if (response.status === 400) {
         toast.info("Username is already taken :)", {
           style: { backgroundColor: "#3b82f6", color: "blue" },

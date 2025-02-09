@@ -7,7 +7,7 @@ interface BlogCards {
   
   function BlogCard({ authorName, title, content, publishedDate }: BlogCards) {
     return (
-      <div className="  border border-slate-200 shadow-md rounded-2xl p-4 bg-white hover:shadow-lg transition-shadow">
+      <div className="  border-b border-slate-200  p-4 bg-white hover:shadow-lg ">
         <div className="flex">
           <Avatar name={authorName} />
   
@@ -39,10 +39,10 @@ interface BlogCards {
   
   export default BlogCard;
   
-  export function Avatar({ name , size = 4 }: { name: string , size ?: number }) {
+  export function Avatar({ name , size = "small" }: { name: string , size ?: "small" | "big" }) {
     return (
-      <div className= {`relative inline-flex items-center justify-center w-${size} h-${size} overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600`}>
-        <span className="font-xs text-gray-600 dark:text-gray-300">
+      <div className= {`relative inline-flex items-center justify-center ${size === "small" ? "w-6 h-6 " : "w-10 h-10 " }  overflow-hidden bg-gray-500 rounded-full dark:bg-gray-600`}>
+        <span className="font-xs text-gray-100 dark:text-gray-300">
           {name[0]}
         </span>
       </div>

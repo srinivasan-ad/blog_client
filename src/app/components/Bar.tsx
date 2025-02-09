@@ -8,7 +8,7 @@ function Bar() {
             Verbser's Blog
         </div>
         <div>
-   <Avatar name = "Aditya" size = {6}/>
+   <Avatar name = "Aditya" size = "big"/>
         </div>
     </div>
   )
