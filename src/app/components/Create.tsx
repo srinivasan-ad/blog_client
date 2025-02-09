@@ -16,7 +16,7 @@ const loginSchema = z.object({
 
 type LoginData = z.infer<typeof loginSchema>;
 
-export default function Login() {
+export default function Login({type} : {type : "signup" | "signin"}) {
   const [formData, setFormData] = useState<LoginData | null>(null);
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginData>({

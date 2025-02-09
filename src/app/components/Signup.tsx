@@ -6,7 +6,7 @@ function Signup() {
   return (
     <div>
  <div className='grid grid-cols-2'>
-       <Create/>
+       <Create type = "signup"/>
         <Quote/>
     </div>
     </div>
