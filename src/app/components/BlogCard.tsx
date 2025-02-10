@@ -1,11 +1,12 @@
 interface BlogCards {
+  id : number
     authorName: string;
     title: string;
     content: string;
     publishedDate: string;
   }
   
-  function BlogCard({ authorName, title, content, publishedDate }: BlogCards) {
+  function BlogCard({ id ,authorName, title, content, publishedDate }: BlogCards) {
     return (
       <div className="  border-b border-slate-200  p-4 bg-white hover:shadow-lg lg:w-screen lg:max-w-4xl ">
         <div className="flex">
