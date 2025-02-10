@@ -10,13 +10,8 @@ function FullBlog() {
   const id = params?.id as string;
   const { loading, blog } = useFullBlog(id);
   if (loading) {
-    return (
-
-      <div className="ben">
-
-      </div>
-  );
-}
+    return <div className="ben"></div>;
+  }
   return (
     <div className="bg-gray-50 min-h-screen">
       <Bar />
@@ -41,15 +36,15 @@ function FullBlog() {
           <h2 className="text-xl font-semibold text-gray-700 mb-4">Author</h2>
           <div className="flex items-center gap-4">
             <Avatar name={blog.author_name} size="big" />
-            <div className="flex flex-col items-center gap-4"> 
+            <div className="flex flex-col items-center gap-4">
               <div>
-              <p className="text-xl font-extrabold break-words">
-            {blog.author_name}
-            </p>
-            <p className=" text-base text-gray-400">Your daily dose of inspiration</p>
+                <p className="text-xl font-extrabold break-words">
+                  {blog.author_name}
+                </p>
+                <p className=" text-base text-gray-400">
+                  Your daily dose of inspiration
+                </p>
               </div>
-           
-          
             </div>
           </div>
         </aside>

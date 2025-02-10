@@ -7,7 +7,7 @@ function useBlogs(page: number) {
 
   useEffect(() => {
     async function fetchBlogs() {
-      setLoading(true); 
+      setLoading(true);
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/user/blog?page=${page}`,
@@ -29,7 +29,7 @@ function useBlogs(page: number) {
         setBlogs(data.blogs || []);
       } catch (error) {
         console.error("Error fetching blogs:", error);
-        setBlogs([]); 
+        setBlogs([]);
       } finally {
         setLoading(false);
       }

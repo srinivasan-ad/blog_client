@@ -5,6 +5,7 @@ import BlogCard from "./BlogCard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useUserBlogs from "../hooks/userblog";
+import Bar from "./Bar";
 
 function UserBlog() {
   const [page, setPage] = useState(1);
@@ -17,7 +18,7 @@ function UserBlog() {
   const { loading, blogs } = useUserBlogs(userId ?? "", page);
 
   const handleNext = () => {
-    if (blogs.length === 5) {
+    if (blogs.length === 4) {
       setPage((prevPage) => prevPage + 1);
     }
   };
@@ -36,11 +37,17 @@ function UserBlog() {
 
   if (loading) {
     return (
-      <div role="status" className="h-screen bg-gray-50 flex flex-col items-center justify-start pt-12 animate-pulse">
+      <div
+        role="status"
+        className="h-screen bg-gray-50 flex flex-col items-center justify-start pt-12 animate-pulse"
+      >
         <div className="max-w-4xl w-full space-y-8 px-4">
           <div className="h-8 bg-gray-300 rounded-md w-1/2 mb-4"></div>
           {[...Array(3)].map((_, index) => (
-            <div key={index} className="p-6 bg-white rounded-lg shadow-md space-y-4">
+            <div
+              key={index}
+              className="p-6 bg-white rounded-lg shadow-md space-y-4"
+            >
               <div className="flex items-center space-x-4">
                 <div className="h-10 w-10 bg-gray-300 rounded-full"></div>
                 <div className="flex-1">
@@ -68,40 +75,50 @@ function UserBlog() {
   }
 
   return (
-    <div className="flex justify-center pt-4">
-      {blogs.length > 0 ? (
-        <>
-          <div className="space-y-10">
-            {blogs.map((blog: any) => (
-              <BlogCard
-                key={blog.id}
-                id={blog.id}
-                authorName={blog.author_name}
-                title={blog.title}
-                content={blog.content}
-                publishedDate={blog.created_at}
-              />
-            ))}
-          </div>
+    <div>
+      <Bar />
 
-          <div className="flex justify-center items-center gap-x-5 mt-2">
-            {page > 1 && (
-              <button onClick={handlePrev} className="p-2 bg-gray-200 rounded-md">
-                Prev
-              </button>
-            )}
-            {blogs.length === 5 && (
-              <button onClick={handleNext} className="p-2 bg-gray-200 rounded-md">
-                Next
-              </button>
-            )}
+      <div className="flex justify-center pt-4 gap-y-4">
+        {blogs.length > 0 ? (
+          <>
+            <div className="space-y-10">
+              {blogs.map((blog: any) => (
+                <BlogCard
+                  key={blog.id}
+                  id={blog.id}
+                  authorName={blog.author_name}
+                  title={blog.title}
+                  content={blog.content}
+                  publishedDate={blog.created_at}
+                />
+              ))}
+            </div>
+
+            <div className="flex justify-center items-center gap-x-5 mt-4">
+              {page > 1 && (
+                <button
+                  onClick={handlePrev}
+                  className="p-2 bg-gray-200 rounded-md"
+                >
+                  Prev
+                </button>
+              )}
+              {blogs.length === 4 && (
+                <button
+                  onClick={handleNext}
+                  className="p-2 bg-gray-200 rounded-md"
+                >
+                  Next
+                </button>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="text-center font-bold text-lg mt-4">
+            Create blogs to view them here
           </div>
-        </>
-      ) : (
-        <div className="text-center font-bold text-lg mt-4">
-          Create blogs to view them here
-        </div>
-      )}
+        )}
+      </div>
       <ToastContainer />
     </div>
   );
