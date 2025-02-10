@@ -1,9 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { useState , useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 export default function Home() {
   const projectDescription = `This blog project was built as a way to brush up  
   my knowledge of technologies like TypeScript, Next.js,  

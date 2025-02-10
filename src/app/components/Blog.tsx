@@ -5,7 +5,7 @@ import Bar from "./Bar";
 import BlogCard from "./BlogCard";
 
 function Blog() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState<number>(1);
 
   const { loading, blogs } = useBlogs(page);
 
