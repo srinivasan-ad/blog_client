@@ -1,14 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 
-function useFullBlogs(page : number) {
+function useFullBlog(id : number) {
   const [loading, setLoading] = useState<boolean>(true);
-  const [blogs, setBlogs] = useState<any[]>([]);
+  const [blog, setBlog] = useState<any>({});
 
   useEffect(() => {
-    async function fetchBlogs(page : number){
+    async function fetchBlogs(id : number){
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/blog?page=${page}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/blog/${id}`, {
           method: "GET",
           credentials: "include", 
           headers: {
@@ -17,25 +17,25 @@ function useFullBlogs(page : number) {
         });
   
         const data = await response.json();
-        setBlogs(data.blogs || []);
+        setBlog(data.blog || {});
       } catch (error) {
         console.error("Error fetching blogs:", error);
-        setBlogs([]);
+        setBlog([]);
       } finally {
         setLoading(false);
       }
     }
 
-    fetchBlogs(page);
+    fetchBlogs(id);
   }, []);
 
 
   return {
  
       loading, 
-      blogs
+      blog
  
   };
 }
 
-export default useFullBlogs;
+export default useFullBlog;
