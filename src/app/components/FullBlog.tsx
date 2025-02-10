@@ -1,8 +1,8 @@
 "use client";
 import { useParams } from "next/navigation";
 import Bar from "./Bar";
-import BlogCard, { Avatar } from "./BlogCard";
-import Link from "next/link";
+import { Avatar } from "./BlogCard";
+
 import useFullBlog from "../hooks/useFullBlog";
 
 function FullBlog() {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function useBlogs(page: number) {
   const [loading, setLoading] = useState<boolean>(true);
