@@ -10,8 +10,13 @@ function FullBlog() {
   const id = params?.id as string;
   const { loading, blog } = useFullBlog(id);
   if (loading) {
-    return <div>...loading</div>;
-  }
+    return (
+
+      <div className="ben">
+
+      </div>
+  );
+}
   return (
     <div className="bg-gray-50 min-h-screen">
       <Bar />

@@ -48,10 +48,17 @@ export default function Login({ type }: { type: "signup" | "signin" }) {
       );
 
       if (response.status === 200) {
+        const data = await response.json()
+        localStorage.setItem("userId",data.id)
         toast.success(
           `${type === "signup" ? "Sign-up" : "Sign-in"} successful!`
-        );
-        router.push("/blogs");
+
+        ,{
+          onClose: () => {
+            router.push("/blogs");
+          },
+        })
+   
       } else if (response.status === 400) {
         toast.info("Username is already taken :)", {
           style: { backgroundColor: "#3b82f6", color: "blue" },

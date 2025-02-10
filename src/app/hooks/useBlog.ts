@@ -7,6 +7,7 @@ function useBlogs(page: number) {
 
   useEffect(() => {
     async function fetchBlogs() {
+      setLoading(true); // Ensure loading state is properly set on page change
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/user/blog?page=${page}`,
@@ -19,11 +20,16 @@ function useBlogs(page: number) {
           }
         );
 
+        if (!response.ok) {
+          throw new Error(`Failed to fetch blogs. Status: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log("Fetched blogs:", data); // Debugging line
         setBlogs(data.blogs || []);
       } catch (error) {
         console.error("Error fetching blogs:", error);
-        setBlogs([]);
+        setBlogs([]); // Handle error gracefully
       } finally {
         setLoading(false);
       }
