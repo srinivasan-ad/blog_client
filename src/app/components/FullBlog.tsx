@@ -24,14 +24,12 @@ function FullBlog() {
 
     <div className="flex justify-center pt-4">
         <div className=" space-y-10">
-          <BlogCard
-          key={blog.id}
-          id = {blog.id}
-          authorName={blog.author_name}
-          title={blog.title}
-          content={blog.content}
-          publishedDate={blog.created_at}
-          />
+
+          <p>{blog.id}</p>
+          <p>{blog.author_name}</p>
+          <p>{blog.title}</p>
+          <p>{blog.content}</p>
+   
 
         </div>
     </div>
