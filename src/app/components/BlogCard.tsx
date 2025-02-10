@@ -7,7 +7,7 @@ interface BlogCards {
   
   function BlogCard({ authorName, title, content, publishedDate }: BlogCards) {
     return (
-      <div className="  border-b border-slate-200  p-4 bg-white hover:shadow-lg ">
+      <div className="  border-b border-slate-200  p-4 bg-white hover:shadow-lg lg:w-screen lg:max-w-4xl ">
         <div className="flex">
           <Avatar name={authorName} />
   

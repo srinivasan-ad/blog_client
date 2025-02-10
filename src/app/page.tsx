@@ -32,7 +32,7 @@ export default function Home() {
     //     }
     //   };
     //   validateUser();
-    // }, [router]);
+    // }, []);
   return (
     <>
       <Link href= "/signup">Signup</Link>

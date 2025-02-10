@@ -1,10 +1,21 @@
+'use client'
+import { useState } from "react"
 import useBlogs from "../hooks"
 import Bar from "./Bar"
 import BlogCard from "./BlogCard"
 
 
 function Blog() {
-    const {loading,blogs} = useBlogs()
+  const [page,setPage]  = useState(1)
+
+  function handleNext() {
+    setPage((prevPage) => prevPage + 1);
+  }
+
+  function handlePrev() {
+    setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
+  }
+    const {loading,blogs} = useBlogs(page)
     if(loading)
     {
         return(
@@ -17,19 +28,27 @@ function Blog() {
     <div>
 <Bar/>
     <div className="flex justify-center pt-4">
-        <div className="max-w-xl space-y-10">
+        <div className=" space-y-10">
         {blogs.map((blog: any) => (
             <BlogCard
               key={blog.id}
-              authorName={blog.authorName}
+              authorName={blog.author_name}
               title={blog.title}
               content={blog.content}
-              publishedDate={new Date(blog.created_at).toLocaleDateString()}
+              publishedDate={blog.created_at}
             />
           ))}
    
         </div>
     </div>
+    <div className="flex justify-center items-center gap-x-5 mt-6">
+        <button onClick={handlePrev} className={`p-2 bg-gray-200 rounded-md ${page === 1 ? "hidden" : "block"}`}>
+          Prev
+        </button>
+        <button onClick={handleNext} className={`p-2 bg-gray-200 rounded-md ${blogs.length === 4 ? "block" : "hidden"} `}>
+          Next
+        </button>
+      </div>
     </div>
   )
 }
