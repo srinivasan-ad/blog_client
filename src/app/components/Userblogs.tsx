@@ -96,18 +96,18 @@ function UserBlog() {
 
             <div className="flex justify-center items-center gap-x-5 mt-4">
               {page > 1 && (
-                <button
-                  onClick={handlePrev}
-                  className="p-2 bg-gray-200 rounded-md"
-                >
-                  Prev
-                </button>
+               <button
+               onClick={handlePrev}
+               className="p-3 bg-gradient-to-r from-green-300 to-blue-300 text-slate-800 rounded-xl shadow-md hover:shadow-lg hover:from-green-400 hover:to-blue-400 transition-transform transform hover:scale-105">
+               Prev
+             </button>
               )}
               {blogs.length === 4 && (
                 <button
                   onClick={handleNext}
-                  className="p-2 bg-gray-200 rounded-md"
-                >
+                  className="p-3 bg-gradient-to-r from-green-300 to-blue-300 text-slate-800 rounded-xl shadow-md hover:shadow-lg hover:from-green-400 hover:to-blue-400 transition-transform transform hover:scale-105">
+    
+                
                   Next
                 </button>
               )}
