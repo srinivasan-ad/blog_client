@@ -3,28 +3,32 @@ import { useState } from "react";
 import useBlogs from "../hooks/useBlog";
 import Bar from "./Bar";
 import BlogCard from "./BlogCard";
-import Link from "next/link";
 
 function Blog() {
   const [page, setPage] = useState(1);
 
-  function handleNext() {
-    setPage((prevPage) => prevPage + 1);
+  const { loading, blogs } = useBlogs(page);
+
+  const handleNext = () => {
+    if (blogs.length === 4) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
+  };
+
+  if (loading) {
+    return <div>Loading blogs...</div>;
   }
 
-  function handlePrev() {
-    setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
-  }
-  const { loading, blogs } = useBlogs(page);
-  if (loading) {
-    return <div>...loading</div>;
-  }
   return (
     <div>
       <Bar />
 
       <div className="flex justify-center pt-4">
-        <div className=" space-y-10">
+        <div className="space-y-10">
           {blogs.map((blog: any) => (
             <BlogCard
               key={blog.id}
@@ -39,22 +43,22 @@ function Blog() {
       </div>
 
       <div className="flex justify-center items-center gap-x-5 mt-6">
-        <button
-          onClick={handlePrev}
-          className={`p-2 bg-gray-200 rounded-md ${
-            page === 1 ? "hidden" : "block"
-          }`}
-        >
-          Prev
-        </button>
-        <button
-          onClick={handleNext}
-          className={`p-2 bg-gray-200 rounded-md ${
-            blogs.length === 4 ? "block" : "hidden"
-          } `}
-        >
-          Next
-        </button>
+        {page > 1 && (
+          <button
+            onClick={handlePrev}
+            className="p-2 bg-gray-200 rounded-md"
+          >
+            Prev
+          </button>
+        )}
+        {blogs.length === 4 && (
+          <button
+            onClick={handleNext}
+            className="p-2 bg-gray-200 rounded-md"
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );

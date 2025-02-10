@@ -6,7 +6,7 @@ function useBlogs(page: number) {
   const [blogs, setBlogs] = useState<any[]>([]);
 
   useEffect(() => {
-    async function fetchBlogs(page: number) {
+    async function fetchBlogs() {
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/user/blog?page=${page}`,
@@ -29,8 +29,8 @@ function useBlogs(page: number) {
       }
     }
 
-    fetchBlogs(page);
-  }, []);
+    fetchBlogs();
+  }, [page]);
 
   return {
     loading,

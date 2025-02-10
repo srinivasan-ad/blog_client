@@ -27,7 +27,7 @@ function FullBlog() {
                 {new Date(blog.created_at).toDateString()}
               </span>
             </p>
-            <article className="prose max-w-full text-gray-800 text-lg leading-relaxed break-words">
+            <article className="prose max-w-full text-gray-800 text-xl leading-relaxed break-words">
               <p>{blog.content}</p>
             </article>
           </div>
@@ -36,9 +36,16 @@ function FullBlog() {
           <h2 className="text-xl font-semibold text-gray-700 mb-4">Author</h2>
           <div className="flex items-center gap-4">
             <Avatar name={blog.author_name} size="big" />
-            <p className="text-lg font-extrabold break-words">
-              {blog.author_name}
+            <div className="flex flex-col items-center gap-4"> 
+              <div>
+              <p className="text-xl font-extrabold break-words">
+            {blog.author_name}
             </p>
+            <p className=" text-base text-gray-400">Your daily dose of inspiration</p>
+              </div>
+           
+          
+            </div>
           </div>
         </aside>
       </div>
