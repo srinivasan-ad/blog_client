@@ -1,12 +1,12 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 
-function useFullBlog(id : number) {
+function useFullBlog(id : string) {
   const [loading, setLoading] = useState<boolean>(true);
   const [blog, setBlog] = useState<any>({});
 
   useEffect(() => {
-    async function fetchBlogs(id : number){
+    async function fetchBlogs(id : string | null){
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/blog/${id}`, {
           method: "GET",
