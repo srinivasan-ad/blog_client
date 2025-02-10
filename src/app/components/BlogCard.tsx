@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface BlogCards {
   id : number
     authorName: string;
@@ -8,6 +10,7 @@ interface BlogCards {
   
   function BlogCard({ id ,authorName, title, content, publishedDate }: BlogCards) {
     return (
+      <Link href={`blog/${id}`}>
       <div className="  border-b border-slate-200  p-4 bg-white hover:shadow-lg lg:w-screen lg:max-w-4xl ">
         <div className="flex">
           <Avatar name={authorName} />
@@ -35,6 +38,7 @@ interface BlogCards {
           {`${Math.ceil(content.length / 100)} minute(s) read`}
         </div>
       </div>
+    </Link>
     );
   }
   
