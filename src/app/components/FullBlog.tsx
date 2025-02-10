@@ -15,7 +15,7 @@ function FullBlog() {
   return (
     <div className="bg-gray-50 min-h-screen">
       <Bar />
-      <div className="flex w-full pt-10 px-6 bg-white">
+      <div className="flex w-full pt-10 px-6 h-screen bg-white">
         <div className="w-[70%]">
           <div className="w-[80%] space-y-8 mx-auto pl-2">
             <h1 className="text-5xl font-black text-gray-900 break-words">
