@@ -39,7 +39,7 @@ export default function Login({ type }: { type: "signup" | "signin" }) {
     try {
       const endpoint = type === "signup" ? "/user/signup" : "/user/signin";
       const response = await fetch(
-        `https://blogserver-production-e457.up.railway.app${endpoint}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}${endpoint}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
