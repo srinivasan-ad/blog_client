@@ -1,5 +1,5 @@
 
-
+"use client"
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -39,7 +39,7 @@ export default function Login({ type }: { type: "signup" | "signin" }) {
     try {
       const endpoint = type === "signup" ? "/user/signup" : "/user/signin";
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}${endpoint}`,
+        `https://blogserver-production-e457.up.railway.app${endpoint}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
