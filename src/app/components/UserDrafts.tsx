@@ -4,10 +4,10 @@ import BlogCard from "./BlogCard";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useUserBlogs from "../hooks/userblog";
+import useUserDrafts from "../hooks/userdraft";
 import Bar from "./Bar";
 
-function UserBlog() {
+function UserDraft() {
   const [page, setPage] = useState(1);
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -15,7 +15,7 @@ function UserBlog() {
     setUserId(localStorage.getItem("userId"));
   }, []);
 
-  const { loading, blogs } = useUserBlogs(userId ?? "", page);
+  const { loading, blogs } = useUserDrafts(userId ?? "", page);
 
   const handleNext = () => {
     if (blogs.length === 4) {
@@ -124,4 +124,4 @@ function UserBlog() {
   );
 }
 
-export default UserBlog;
+export default UserDraft;

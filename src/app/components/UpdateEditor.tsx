@@ -9,7 +9,6 @@ function BlogEditor() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const router = useRouter();
-
   const handleSubmit = async () => {
     const payload = {
       title,
@@ -46,7 +45,6 @@ function BlogEditor() {
       toast.error("An unexpected error occurred.");
     }
   };
-
   const handleDraft = async () => {
     const payload = {
       title,
@@ -68,8 +66,7 @@ function BlogEditor() {
       const data = await response.json();
 
       if (response.ok) {
-        toast.success(data.message || "Draft saved successfully!", {
-          style: { backgroundColor: "rgb(249, 250, 251)", color: "blue" },
+        toast.success(data.message || "Blog posted successfully!", {
           onClose: () => {
             router.push(`/userdrafts`);
           },
@@ -77,10 +74,10 @@ function BlogEditor() {
         setTitle("");
         setContent("");
       } else {
-        toast.error(data.message || "Failed to save draft.");
+        toast.error(data.message || "Failed to post blog.");
       }
     } catch (error) {
-      console.error("Error saving draft:", error);
+      console.error("Error posting blog:", error);
       toast.error("An unexpected error occurred.");
     }
   };

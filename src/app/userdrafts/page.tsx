@@ -1,8 +1,8 @@
-import UserBlog from "../components/Userblogs";
+import UserDraft from "../components/UserDrafts";
 export default function Login() {
   return (
     <>
-  <UserBlog/>
+  <UserDraft/>
     </>
   );
 }

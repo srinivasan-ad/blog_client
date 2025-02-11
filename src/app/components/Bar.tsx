@@ -17,6 +17,10 @@ function Bar() {
          
           <h1>My Blogs</h1>
         </Link>
+        <Link href="/userdrafts">
+         
+          <h1>My Drafts</h1>
+        </Link>
         <Link href="/createblog">
        
           <h1>Create Blog</h1>
