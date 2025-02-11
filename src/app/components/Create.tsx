@@ -50,6 +50,7 @@ export default function Login({ type }: { type: "signup" | "signin" }) {
       if (response.status === 200) {
         const data = await response.json();
         localStorage.setItem("userId", data.id);
+        localStorage.setItem("name",data.name)
         toast.success(
           `${type === "signup" ? "Sign-up" : "Sign-in"} successful!`,
 

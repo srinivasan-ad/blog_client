@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Avatar } from "./BlogCard";
 
 function Bar() {
+  const uName = localStorage.getItem("name")
   return (
     <div className="border-b flex md:justify-between items-center font-extrabold md:px-10 py-4">
       <div>
@@ -27,7 +28,7 @@ function Bar() {
         <div className="md:block hidden">
 
 
-        <Avatar name="Aditya" size="big"  />
+        <Avatar name = {uName} size="big"  />
         </div>
       </div>
     </div>

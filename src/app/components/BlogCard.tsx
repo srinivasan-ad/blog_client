@@ -51,10 +51,10 @@ function BlogCard({
 export default BlogCard;
 
 export function Avatar({
-  name,
+  name = "User",
   size = "small",
 }: {
-  name: string;
+  name?: string | null;
   size?: "small" | "big";
 }) {
   return (
@@ -64,7 +64,7 @@ export function Avatar({
       }  overflow-hidden bg-gray-500 rounded-full dark:bg-gray-600`}
     >
       <span className="font-xs text-gray-100 dark:text-gray-300">
-        {name[0]}
+        {name != null ? name[0] : "U"}
       </span>
     </div>
   );
