@@ -87,7 +87,7 @@ function Blog() {
        </button>
         )}
         {blogs.length === 4 && (
-          <button onClick={handleNext}    className="p-3 bg-gradient-to-r from-green-300 to-blue-300 text-slate-800 rounded-xl shadow-md hover:shadow-lg hover:from-green-400 hover:to-blue-400 transition-transform transform hover:scale-105">
+          <button onClick={handleNext}    className="py-3 px-7 bg-gradient-to-r from-green-300 to-blue-300 text-slate-800 rounded-3xl shadow-md hover:shadow-lg hover:from-green-400 hover:to-blue-400 transition-transform transform hover:scale-105">
         Next
           </button>
         )}
