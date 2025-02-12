@@ -8,6 +8,7 @@ function useFullBlog(id: string) {
   useEffect(() => {
     if (!id)
       {
+        
         setLoading(false);
         return; 
       } 
