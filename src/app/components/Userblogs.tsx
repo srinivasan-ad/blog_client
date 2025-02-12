@@ -90,6 +90,7 @@ function UserBlog() {
                   title={blog.title}
                   content={blog.content}
                   publishedDate={blog.created_at}
+                  type = "blog"
                 />
               ))}
             </div>

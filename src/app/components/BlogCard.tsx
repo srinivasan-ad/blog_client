@@ -6,6 +6,7 @@ interface BlogCards {
   title: string;
   content: string;
   publishedDate: string;
+  type : string
 }
 
 function BlogCard({
@@ -14,9 +15,10 @@ function BlogCard({
   title,
   content,
   publishedDate,
-}: BlogCards) {
+  type 
+}: BlogCards , ) {
   return (
-    <Link href={`blog/${id}`}>
+    <Link href={type === "blog" ? `blog/${id}` : `draft/${id}`}>
       <div className="  border-b border-slate-200  p-4 bg-white hover:shadow-lg lg:w-screen lg:max-w-4xl ">
         <div className="flex">
           <Avatar name={authorName} />

@@ -6,31 +6,35 @@ function useFullBlog(id: string) {
   const [blog, setBlog] = useState<any>({});
 
   useEffect(() => {
-    async function fetchBlogs(id: string | null) {
+    if (!id)
+      {
+        setLoading(false);
+        return; 
+      } 
+  
+    async function fetchBlogs() {
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/user/blog/${id}`,
           {
             method: "GET",
             credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
           }
         );
-
+  
         const data = await response.json();
         setBlog(data.blog || {});
       } catch (error) {
-        console.error("Error fetching blogs:", error);
-        setBlog([]);
+        console.error("Error fetching blog:", error);
+        setBlog({});
       } finally {
         setLoading(false);
       }
     }
-
-    fetchBlogs(id);
-  }, []);
+  
+    fetchBlogs();
+  }, [id]);
 
   return {
     loading,

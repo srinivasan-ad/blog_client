@@ -90,6 +90,7 @@ function UserDraft() {
                   title={blog.title}
                   content={blog.content}
                   publishedDate={blog.created_at}
+                  type = "drafts"
                 />
               ))}
             </div>
@@ -115,7 +116,7 @@ function UserDraft() {
           </>
         ) : (
           <div className="text-center font-bold text-lg mt-4">
-            Create blogs to view them here
+            There are no pending drafts :)
           </div>
         )}
       </div>

@@ -1,21 +1,41 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Bar from "./Bar";
+import useFullBlog from "../hooks/useFullBlog";
 
 function BlogEditor() {
+  const params = useParams()
+ 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const router = useRouter();
-
+  const id = params?.id as string
+  const { loading, blog } = useFullBlog(id);
+ 
+useEffect(() => {
+  if(id && blog)
+    {
+      setTitle(blog.title || " ")
+      setContent(blog.content || " ")
+    }
+},[id,blog])
+if (loading) {
+  return <div className="ben"></div>;
+}
+const userId = localStorage.getItem("userId")
+if (!userId) {
+  toast.error("User not logged in.");
+  return;
+}
   const handleSubmit = async () => {
     const payload = {
       title,
       content,
       published: true,
-      userId: localStorage.getItem("userId"),
+      userId: userId ? parseInt(userId) : 0,
     };
 
     try {
@@ -47,7 +67,7 @@ function BlogEditor() {
     }
   };
 
-  const handleDraft = async () => {
+  async function handleDraft(){
     const payload = {
       title,
       content,
@@ -84,7 +104,83 @@ function BlogEditor() {
       toast.error("An unexpected error occurred.");
     }
   };
+ async function handleDraftSubmit (){
+    const payload = {
+      title,
+      content,
+      published: true,
+      blogId : parseInt(id),
+      userId: localStorage.getItem("userId"),
+    };
 
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/user/blog`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(data.message || "Draft published successfully!", {
+          style: { backgroundColor: "#c6f6d5", color: "green" },
+          onClose: () => {
+            router.push(`/blog/${id}`);
+          },
+        });
+        setTitle("");
+        setContent("");
+      } else {
+        toast.error(data.message || "Failed to save draft.");
+      }
+    } catch (error) {
+      console.error("Error saving draft:", error);
+      toast.error("An unexpected error occurred.");
+    }
+  };
+  async function handleDraftSaveDraft (){
+    const payload = {
+      title,
+      content,
+      published: false,
+      blogId : id,
+      userId: localStorage.getItem("userId"),
+    };
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/user/blog`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(data.message || "Draft saved successfully!", {
+          style: { backgroundColor: "rgb(249, 250, 251)", color: "blue" },
+          onClose: () => {
+            router.push(`/userdrafts`);
+          },
+        });
+        setTitle("");
+        setContent("");
+      } else {
+        toast.error(data.message || "Failed to save draft.");
+      }
+    } catch (error) {
+      console.error("Error saving draft:", error);
+      toast.error("An unexpected error occurred.");
+    }
+  };
+const head = !id ? "Create a New Blog" : "Edit Draft "
   return (
     <div>
       <Bar />
@@ -96,7 +192,7 @@ function BlogEditor() {
         />
         <div className="w-full max-w-3xl bg-white shadow-lg rounded-2xl p-8">
           <h1 className="text-3xl font-extrabold text-center mb-6 ">
-            Create a New Blog
+          {head}
           </h1>
 
           <div className="space-y-4">
@@ -125,13 +221,13 @@ function BlogEditor() {
             </div>
             <div className="flex w-full justify-around">
             <button
-              onClick={handleDraft}
+              onClick={id ? handleDraftSaveDraft : handleDraft}
               className="w-[30%] py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-all duration-200"
             >
               Save Draft
             </button>
             <button
-              onClick={handleSubmit}
+              onClick={id ? handleDraftSubmit : handleSubmit}
               className="w-[30%] py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold transition-all duration-200"
             >
               Publish
